@@ -15,10 +15,11 @@ const CustomNavbar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link> 
-
                         <NavDropdown title="Consultar">
+                            <Link href="/consultar-codigo" style={{textDecoration: 'none'}}>
+                                <NavDropdown.Item as={Box}>Código</NavDropdown.Item>
+                            </Link>
+
                             <Link href="/consultar-materiales" style={{ textDecoration: 'none' }}>
                                 <NavDropdown.Item as={Box}>Materiales</NavDropdown.Item>
                             </Link>
@@ -27,6 +28,8 @@ const CustomNavbar = () => {
                                 <NavDropdown.Item as={Box}>Procesos</NavDropdown.Item>
                             </Link>
                         </NavDropdown>
+
+                        {/* <Nav.Link href="/consultar">Consultar</Nav.Link> */}
 
                         <NavDropdown title="Registrar">
                             <Link href="/registrar-materiales" style={{ textDecoration: 'none' }}> 

@@ -18,8 +18,8 @@ const ResiduosIniciales = () => {
 
         toast.promise(promise, {
             loading: 'Guardando datos...',
-            success: 'Datos guardados ✅',
-            error: 'Hubo un error al guardar los datos ❌'
+            success: 'Datos guardados',
+            error: 'Hubo un error al guardar los datos'
         })
 
         promise.catch(err => console.log(err))

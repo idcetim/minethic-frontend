@@ -1,5 +1,3 @@
-'use client'
-
 import { Box, FormControl, InputLabel, Select, MenuItem, OutlinedInput, Chip, useTheme, SelectChangeEvent, Theme } from "@mui/material"
 
 const ITEM_HEIGHT = 48;

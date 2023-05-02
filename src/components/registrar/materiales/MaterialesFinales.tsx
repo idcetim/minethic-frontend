@@ -1,26 +1,36 @@
-import { addMMPPFinal } from "@/lib/blockchain"
+import { addMMPPFinal, getProcesosPostratamiento } from "@/lib/blockchain"
 import IMaterialFinal from "@/lib/types/IMateriaFinal"
+import IProcesoPostratamiento from "@/lib/types/IProcesoPostratamiento";
+import { useTheme } from "@emotion/react";
 import { Grid, InputLabel, Select, TextField, FormControl, MenuItem, Button } from "@mui/material"
+import React from "react";
 import { useState } from "react"
 import toast, { Toaster } from 'react-hot-toast';
 
 const MaterialesFinales = () => {
     const [values, setValues] = useState<IMaterialFinal>({
         codigo: '',
-        tipoMaterial: 'Imán',
+        tipoMaterial: '',
         masa: '',
         porcentajeSubstitucion: '',
-        procesoOrigen: ''
+        procesoOrigen: undefined
     })
-    const [procesosOrigen, setProcesosOrigen] = useState(['p1', 'p2', 'p3'])
+    const [procesosOrigen, setProcesosOrigen] = useState<IProcesoPostratamiento[]>([])
+
+    React.useEffect(() => {
+        getProcesosPostratamiento()
+            .then(result => setProcesosOrigen(result))
+    }, [])
+
+    console.log(procesosOrigen)
 
     const saveMaterial = async() => {
         const promise = addMMPPFinal(values)
 
         toast.promise(promise, {
             loading: 'Guardando datos...',
-            success: 'Datos guardados ✅',
-            error: 'Hubo un error al guardar los datos ❌'
+            success: 'Datos guardados',
+            error: 'Hubo un error al guardar los datos'
         })
 
         promise.catch(err => console.log(err))
@@ -35,6 +45,7 @@ const MaterialesFinales = () => {
                     label="Codigo"
                     variant="outlined"
                     value={values.codigo}
+                    onChange={ev => setValues({...values, codigo: ev.target.value})}
                     fullWidth
                 />
             </Grid>
@@ -58,6 +69,7 @@ const MaterialesFinales = () => {
                     label="Masa"
                     variant="outlined"
                     value={values.masa}
+                    onChange={ev => setValues({...values, masa: ev.target.value})}
                     fullWidth
                 />
             </Grid>
@@ -67,6 +79,7 @@ const MaterialesFinales = () => {
                     label="Porcentaje substitución"
                     variant="outlined"
                     value={values.porcentajeSubstitucion}
+                    onChange={ev => setValues({...values, porcentajeSubstitucion: ev.target.value})}
                     fullWidth
                 />
             </Grid>
@@ -77,17 +90,17 @@ const MaterialesFinales = () => {
                     <Select
                         label="Proceso de origen"
                         value={values.procesoOrigen}
-                        onChange={ev => setValues({ ...values, procesoOrigen: ev.target.value })}
+                        onChange={ev => setValues({ ...values, procesoOrigen: ev.target.value as any })}
                     >
-                        {procesosOrigen.map((proceso, index) => (
-                            <MenuItem value={proceso} key={index}>{proceso}</MenuItem>
+                        {procesosOrigen.map(proceso => (
+                            <MenuItem value={proceso.id} key={proceso.id}>{proceso.codigo}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
             </Grid>
 
             <Grid item xs={12} sx={{ textAlign: 'right' }}>
-                <Button variant="contained" onClick={saveMaterial}>Guardar</Button>
+                <Button variant="outlined" onClick={saveMaterial}>Guardar</Button>
             </Grid>
         </Grid>
     )

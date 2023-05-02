@@ -1,27 +1,33 @@
 import { Button, Grid, InputLabel, MenuItem, Select, TextField, FormControl } from "@mui/material"
-import MultipleSelectChip from "../procesos/MultipleSelectChip"
 import { useState } from "react"
 import IMaterialPostPretratamiento from "@/lib/types/IMaterialPostPretratamiento"
-import { addMMPPPostPretratamiento } from "@/lib/blockchain"
+import { addMMPPPostPretratamiento, getProcesosPretratamiento } from "@/lib/blockchain"
 import toast, { Toaster } from 'react-hot-toast';
+import React from "react";
+import IProcesoPretratamiento from "@/lib/types/IProcesoPretratamiento";
 
 const MaterialesDespuesPretratamiento = () => {
     const [values, setValues] = useState<IMaterialPostPretratamiento>({
         codigo: '',
         tipo: '',
-        procesoOrigen: '',
+        procesoOrigen: undefined,
         masa: '',
         pureza: '',
     })
-    const [procesosOrigen, setProcesosOrigen] = useState(['p1', 'p2', 'p3'])
+    const [procesosOrigen, setProcesosOrigen] = useState<IProcesoPretratamiento[]>([])
+
+    React.useEffect(() => {
+        getProcesosPretratamiento()
+            .then(result => setProcesosOrigen(result))
+    })
 
     const saveMaterial = async() => {
         const promise = addMMPPPostPretratamiento(values)
 
         toast.promise(promise, {
             loading: 'Guardando datos...',
-            success: 'Datos guardados ✅',
-            error: 'Hubo un error al guardar los datos ❌'
+            success: 'Datos guardados',
+            error: 'Hubo un error al guardar los datos'
         })
 
         promise.catch(err => console.log(err))
@@ -57,10 +63,10 @@ const MaterialesDespuesPretratamiento = () => {
                     <Select
                         label="Proceso de origen"
                         value={values.procesoOrigen}
-                        onChange={ev => setValues({ ...values, procesoOrigen: ev.target.value })}
+                        onChange={ev => setValues({ ...values, procesoOrigen: ev.target.value as any })}
                     >
-                        {procesosOrigen.map((proceso, index) => (
-                            <MenuItem value={proceso} key={index}>{proceso}</MenuItem>
+                        {procesosOrigen.map(proceso => (
+                            <MenuItem value={proceso.id} key={proceso.id}>{proceso.codigo}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
