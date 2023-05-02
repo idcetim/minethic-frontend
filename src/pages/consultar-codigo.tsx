@@ -10,11 +10,11 @@ import React from "react"
 import SearchIcon from '@mui/icons-material/Search';
 
 enum TipoElemento {
-    MateriaInicial,
-    MateriaPostPretratamiento,
-    MateriaFinal,
-    ProcesoPretratamiento,
-    ProcesoPostratamiento
+    MateriaInicial="Material inicial",
+    MateriaPostPretratamiento="Material post-pretratamiento",
+    MateriaFinal="Material final",
+    ProcesoPretratamiento="Proceso pretratamiento",
+    ProcesoPostratamiento="Proceso postratamiento"
 }
 
 type IElemento = IMaterialInicial | IMaterialPostPretratamiento | IMaterialFinal | IProcesoPretratamiento | IProcesoPostratamiento
@@ -208,8 +208,33 @@ const ConsultarCodigo = () => {
             <Box sx={{ width: '100%', paddingTop: '56px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <SearchBar ejecutarBusqueda={ejecutarBusqueda} />
 
-                <Box sx={{paddingTop: '30px'}}>
-                    <Stepper activeStep={activeStep} sx={{marginBottom: '20px'}}>
+                {elementosEncontrados && elementosEncontrados.length > 1 ? 
+                    <TableContainer component={Paper} sx={{marginTop: '20px', width: '700px'}}>
+                        <Table aria-label="Elementos encontrados código buscado">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell><b>Tipo elemento</b></TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody>
+                                {elementosEncontrados.map((elemento, index) => (
+                                    <TableRow 
+                                        key={index} 
+                                        sx={{cursor: 'pointer'}}
+                                        hover
+                                        onClick={() => getSteps(elemento)}
+                                    >
+                                        <TableCell>{elemento.tipoElemento}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                : null}
+
+                <Box sx={{ paddingTop: '30px' }}>
+                    <Stepper activeStep={activeStep} sx={{ marginBottom: '20px' }}>
                         {steps?.map((label, index) => {
                             return (
                                 <Step key={label}>
@@ -225,8 +250,8 @@ const ConsultarCodigo = () => {
                                 <Table sx={{ minWidth: 650 }} aria-label="Tabla materias iniciales">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Codigo</TableCell>
-                                            <TableCell>Proveedor</TableCell>
+                                            <TableCell><b>Codigo</b></TableCell>
+                                            <TableCell><b>Proveedor</b></TableCell>
                                         </TableRow>
                                     </TableHead>
 
@@ -249,8 +274,8 @@ const ConsultarCodigo = () => {
                                 <Table sx={{ minWidth: 650 }} aria-label="Tabla procesos pretratamiento">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Codigo</TableCell>
-                                            <TableCell>Procesos realizados</TableCell>
+                                            <TableCell><b>Codigo</b></TableCell>
+                                            <TableCell><b>Procesos realizados</b></TableCell>
                                         </TableRow>
                                     </TableHead>
 
@@ -273,10 +298,10 @@ const ConsultarCodigo = () => {
                                 <Table sx={{ minWidth: 650 }} aria-label="Tabla materias post pretratamiento">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Codigo</TableCell>
-                                            <TableCell>Tipo</TableCell>
-                                            <TableCell>Masa</TableCell>
-                                            <TableCell>Pureza</TableCell>
+                                            <TableCell><b>Codigo</b></TableCell>
+                                            <TableCell><b>Tipo</b></TableCell>
+                                            <TableCell><b>Masa</b></TableCell>
+                                            <TableCell><b>Pureza</b></TableCell>
                                         </TableRow>
                                     </TableHead>
 
@@ -301,8 +326,8 @@ const ConsultarCodigo = () => {
                                 <Table sx={{ minWidth: 650 }} aria-label="Tabla procesos postratamiento">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Codigo</TableCell>
-                                            <TableCell>Procesos realizados</TableCell>
+                                            <TableCell><b>Codigo</b></TableCell>
+                                            <TableCell><b>Procesos realizados</b></TableCell>
                                         </TableRow>
                                     </TableHead>
 
@@ -325,10 +350,10 @@ const ConsultarCodigo = () => {
                                 <Table sx={{ minWidth: 650 }} aria-label="Tabla materias finales">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Codigo</TableCell>
-                                            <TableCell>Tipo material</TableCell>
-                                            <TableCell>Masa</TableCell>
-                                            <TableCell>Porcentaje substitución</TableCell>
+                                            <TableCell><b>Codigo</b></TableCell>
+                                            <TableCell><b>Tipo material</b></TableCell>
+                                            <TableCell><b>Masa</b></TableCell>
+                                            <TableCell><b>Porcentaje substitución</b></TableCell>
                                         </TableRow>
                                     </TableHead>
 
@@ -347,24 +372,25 @@ const ConsultarCodigo = () => {
                         </React.Fragment>
                     ) : null}
 
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Button
-                            color="inherit"
-                            disabled={activeStep === 0}
-                            onClick={() => setActiveStep(activeStep - 1)}
-                            sx={{ mr: 1 }}
-                        >
-                            Back
-                        </Button>
+                    {steps && steps.length > 0 ?
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                            <Button
+                                color="inherit"
+                                disabled={activeStep === 0}
+                                onClick={() => setActiveStep(activeStep - 1)}
+                                sx={{ mr: 1 }}
+                            >
+                                Back
+                            </Button>
 
-                        <Button
-                            disabled={activeStep === (steps?.length ?? 0) - 1}
-                            onClick={() => setActiveStep(activeStep + 1)}
-                        >
-                            Next
-                        </Button>
-                    </Box>
-
+                            <Button
+                                disabled={activeStep === (steps?.length ?? 0) - 1}
+                                onClick={() => setActiveStep(activeStep + 1)}
+                            >
+                                Next
+                            </Button>
+                        </Box>
+                        : null}
                 </Box>
             </Box>
         </main>

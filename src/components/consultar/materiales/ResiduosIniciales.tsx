@@ -33,6 +33,7 @@ const ResiduosIniciales = () => {
             getActions: ({ id }) => {
                 return [
                     <GridActionsCellItem
+                        key={0}
                         icon={<Tooltip title={"Mostrar elementos registrados"}><ListAltIcon /></Tooltip>}
                         label="Delete"
                         onClick={() => setModalData({ open: true, elements: materiasPrimas[id as number].elementos })}
@@ -67,9 +68,9 @@ const ResiduosIniciales = () => {
                     <Table sx={{ width: '100%' }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Nombre</TableCell>
-                                <TableCell align="right">Masa</TableCell>
-                                <TableCell align="right">Porcentaje</TableCell>
+                                <TableCell><b>Nombre</b></TableCell>
+                                <TableCell align="right"><b>Masa</b></TableCell>
+                                <TableCell align="right"><b>Porcentaje</b></TableCell>
                             </TableRow>
                         </TableHead>
 

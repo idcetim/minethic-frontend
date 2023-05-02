@@ -38,6 +38,7 @@ const Pretratamientos = () => {
             getActions: ({ id }) => {
                 return [
                     <GridActionsCellItem
+                        key={0}
                         icon={<Tooltip title="Mostrar elementos registrados"><ListAltIcon /></Tooltip>}
                         label="Delete"
                         onClick={() => setModalDataMaterias({
@@ -79,8 +80,8 @@ const Pretratamientos = () => {
                         <Table sx={{ width: '100%' }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell component="th">Codigo</TableCell>
-                                    <TableCell align="right">Proveedor</TableCell>
+                                    <TableCell component="th"><b>Codigo</b></TableCell>
+                                    <TableCell align="right"><b>Proveedor</b></TableCell>
                                 </TableRow>
                             </TableHead>
 

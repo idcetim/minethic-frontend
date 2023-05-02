@@ -37,6 +37,7 @@ const Postratamientos = () => {
             getActions: ({ id }) => {
                 return [
                     <GridActionsCellItem
+                        key={0}
                         icon={<Tooltip title="Mostrar elementos registrados"><ListAltIcon /></Tooltip>}
                         label="Delete"
                         onClick={() => setModalDataMaterias({
@@ -78,10 +79,10 @@ const Postratamientos = () => {
                         <Table sx={{ width: '100%' }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell component="th">Codigo</TableCell>
-                                    <TableCell align="right">Masa</TableCell>
-                                    <TableCell align="right">Pureza</TableCell>
-                                    <TableCell align="right">Tipo</TableCell>
+                                    <TableCell component="th"><b>Codigo</b></TableCell>
+                                    <TableCell align="right"><b>Masa</b></TableCell>
+                                    <TableCell align="right"><b>Pureza</b></TableCell>
+                                    <TableCell align="right"><b>Tipo</b></TableCell>
                                 </TableRow>
                             </TableHead>
 
