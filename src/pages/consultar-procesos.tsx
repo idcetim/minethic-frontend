@@ -50,7 +50,7 @@ const ConsultarProcesos = () => {
             <CustomNavbar />
 
             <Box sx={{width: '100%', paddingTop: '56px'}}>
-                <Box sx={{boderBottom: 1, borderColor: 'divider'}}>
+                <Box sx={{boderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center'}}>
                     <Tabs value={value} onChange={handleChange} centered variant="scrollable" scrollButtons="auto">
                         <Tab label="Pretratamientos" {...a11yProps(0)} />
                         <Tab label="Postratamientos" {...a11yProps(1)} />

@@ -1,7 +1,7 @@
 import { getMMPPIniciales } from "@/lib/blockchain"
 import IElementoMaterialInicial from "@/lib/types/IElementoMaterialInicial"
 import IMaterialInicial from "@/lib/types/IMaterialInicial"
-import { Box, Dialog, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material"
+import { Box, Dialog, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, DialogTitle, DialogContent } from "@mui/material"
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
 import React from "react"
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -64,27 +64,30 @@ const ResiduosIniciales = () => {
             />
 
             <Dialog open={modalData.open} onClose={() => setModalData({ ...modalData, open: false })}>
-                <TableContainer>
-                    <Table sx={{ width: '100%' }}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell><b>Nombre</b></TableCell>
-                                <TableCell align="right"><b>Masa</b></TableCell>
-                                <TableCell align="right"><b>Porcentaje</b></TableCell>
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {modalData.elements.map((row, index) => (
-                                <TableRow key={index}>
-                                    <TableCell component="th" scope="row">{row.nombre}</TableCell>
-                                    <TableCell align="right">{row.masa}</TableCell>
-                                    <TableCell align="right">{row.porcentaje}</TableCell>
+                <DialogTitle>Composición elementos</DialogTitle>
+                <DialogContent>
+                    <TableContainer>
+                        <Table sx={{ width: '100%' }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell><b>Nombre</b></TableCell>
+                                    <TableCell align="right"><b>Masa</b></TableCell>
+                                    <TableCell align="right"><b>Porcentaje</b></TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+
+                            <TableBody>
+                                {modalData.elements.map((row, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell component="th" scope="row">{row.nombre}</TableCell>
+                                        <TableCell align="right">{row.masa}</TableCell>
+                                        <TableCell align="right">{row.porcentaje}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </DialogContent>
             </Dialog>
         </Box>
     )
