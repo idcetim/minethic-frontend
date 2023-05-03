@@ -49,8 +49,8 @@ export default function RegistrarMateriales() {
             <CustomNavbar />
 
             <Box sx={{ width: '100%', paddingTop: '56px' }}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered variant="scrollable" scrollButtons="auto">
                         <Tab label="Pretratamiento" {...a11yProps(0)} />
                         <Tab label="Postratamiento" {...a11yProps(1)} />
                     </Tabs>

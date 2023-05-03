@@ -209,7 +209,7 @@ const ConsultarCodigo = () => {
                 <SearchBar ejecutarBusqueda={ejecutarBusqueda} />
 
                 {elementosEncontrados && elementosEncontrados.length > 1 ? 
-                    <TableContainer component={Paper} sx={{marginTop: '20px', width: '700px'}}>
+                    <TableContainer component={Paper} sx={{marginTop: '20px', width: '700px', maxWidth: '90%'}}>
                         <Table aria-label="Elementos encontrados código buscado">
                             <TableHead>
                                 <TableRow>
@@ -233,7 +233,7 @@ const ConsultarCodigo = () => {
                     </TableContainer>
                 : null}
 
-                <Box sx={{ paddingTop: '30px' }}>
+                <Box sx={{ paddingTop: '30px', maxWidth: '90%' }}>
                     <Stepper activeStep={activeStep} sx={{ marginBottom: '20px' }}>
                         {steps?.map((label, index) => {
                             return (

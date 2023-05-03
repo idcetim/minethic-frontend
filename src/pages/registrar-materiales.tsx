@@ -50,8 +50,15 @@ export default function RegistrarMateriales() {
             <CustomNavbar />
 
             <Box sx={{ width: '100%', paddingTop: '56px' }}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Tabs
+                        value={value} 
+                        onChange={handleChange} 
+                        aria-label="basic tabs example" 
+                        variant="scrollable" 
+                        scrollButtons="auto" 
+                        allowScrollButtonsMobile
+                    >
                         <Tab label="Materias iniciales" {...a11yProps(0)} />
                         <Tab label="Materias post pretratamiento" {...a11yProps(1)} />
                         <Tab label="Materias finales" {...a11yProps(2)} />
